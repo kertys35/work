@@ -165,7 +165,7 @@ void input_patient(int total_lines, struct patient patients[30], struct sickness
     do {
         int i = 0;
         gets_s(patients[total_lines - 1].diagnosis);
-        while (ill[i].id > 0)
+        while (strlen(ill[i].diagnosis) > 0)
         {
             if (_stricmp(patients[total_lines - 1].diagnosis, ill[i].diagnosis) == 0)
                 check = 1;
@@ -199,6 +199,7 @@ void del_patient(int line_num, struct patient patients[30], struct doctor doc[30
             check = 1;
         if (check)
         {
+            patients[i].id = i+1;
             strcpy(patients[i].name, patients[i+1].name);
             strcpy(patients[i].diagnosis, patients[i+1].diagnosis);
             strcpy(patients[i].state, patients[i+1].state);
@@ -259,7 +260,7 @@ void write_results(struct patient patients[30], struct sickness ill[30], struct 
     fprintf(ved, "|Пациент                  |Доктор                  |Больница                 |\n");
     while (patients[i].id > 0)
     {
-        fprintf(ved, "|%24s |%24s|%24s|\n", doc[i].patient_name, doc[i].doctor_name,hosp[i].hospital_name);
+        fprintf(ved, "|%24s |%24s|%24s |\n", doc[i].patient_name, doc[i].doctor_name,hosp[i].hospital_name);
         i++;
     }
     fprintf(ved,"------------------------------------------------------------------------------\n");
