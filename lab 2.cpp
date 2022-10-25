@@ -163,7 +163,7 @@ void input_patient(int total_lines, struct patient patients[30], struct sickness
     hosp[total_lines - 1].id = total_lines;
     printf("Введите диагноз пациента:\n");
     int check = 0,ill_end=0;
-
+    ill[total_lines - 1].id = total_lines;
     do {
         int i = 0;
         gets_s(patients[total_lines - 1].diagnosis);
