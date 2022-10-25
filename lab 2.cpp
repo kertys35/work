@@ -153,12 +153,14 @@ void input_patient(int total_lines, struct patient patients[30], struct sickness
     do {
         gets_s(doc[total_lines - 1].doctor_name);
     } while (strlen(doc[total_lines - 1].doctor_name) == 0);
+    doc[total_lines - 1].id = total_lines;
     strcpy(doc[total_lines - 1].patient_name, patients[total_lines - 1].name);
     printf("Введите название больницы доктора:\n");
     do {
         gets_s(hosp[total_lines - 1].hospital_name);
     } while (strlen(hosp[total_lines - 1].hospital_name) == 0);
     strcpy(hosp[total_lines - 1].doctor_name, doc[total_lines - 1].doctor_name);
+    hosp[total_lines - 1].id = total_lines;
     printf("Введите диагноз пациента:\n");
     int check = 0,ill_end=0;
 
@@ -199,7 +201,6 @@ void del_patient(int line_num, struct patient patients[30], struct doctor doc[30
             check = 1;
         if (check)
         {
-            patients[i].id = i+1;
             strcpy(patients[i].name, patients[i+1].name);
             strcpy(patients[i].diagnosis, patients[i+1].diagnosis);
             strcpy(patients[i].state, patients[i+1].state);
@@ -211,7 +212,8 @@ void del_patient(int line_num, struct patient patients[30], struct doctor doc[30
         i++;
     }
     patients[i - 1].id = 0;
-
+    doc[i - 1].id = 0;
+    hosp[i - 1].id = 0;
 }
 //Вывод данных о докторе//
 void out_doc(int line, struct doctor doc[30]) 
