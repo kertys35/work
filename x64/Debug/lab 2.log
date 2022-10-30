@@ -1,2 +1,4 @@
 ﻿  lab 2.cpp
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(310,13): warning C4101: id: неиспользованная локальная переменная
+  LINK : не найден или не выполнена сборка C:\Users\Papa\Desktop\Новая папка (2)\work\x64\Debug\lab 2.exe при последней инкрементной компоновке; выполняется полная компоновка
   lab 2.vcxproj -> C:\Users\Papa\Desktop\Новая папка (2)\work\x64\Debug\lab 2.exe

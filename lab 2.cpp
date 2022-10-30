@@ -11,10 +11,10 @@
 //Пациент//
 class patient {
 private:
-    int id = 0;
-    char name[25] = "";
-    char diagnosis[40] = "";
-    char state[20] = "";
+    int id;
+    char name[25];
+    char diagnosis[40];
+    char state[20];
 public:
     patient(int new_id, const char new_patient_name[25], const char new_diagnosis[40], const char new_state[20])
     {
@@ -23,7 +23,6 @@ public:
         strcpy(diagnosis, new_diagnosis);
         strcpy(state, new_state);
     }
-public:
     patient(int new_id, char new_patient_name[25], char new_diagnosis[40], char new_state[20])
     {
         id = new_id;
@@ -31,18 +30,17 @@ public:
         strcpy(diagnosis, new_diagnosis);
         strcpy(state, new_state);
     }
-public:
     patient()
     {
-
+        int id = 0;
+        char name[25] = "";
+        char diagnosis[40] = "";
+        char state[20] = "";
     }
-public:
     ~patient()
     {
 
     }
-
-public:
     void out(patient patients[30])
     {
         int i = 0;
@@ -54,11 +52,7 @@ public:
         }
         printf("------------------------------------------------------------------\n");
     }
-    //void compare_status(int line, patient patients[30])
-    //{
-    //    if (_stricmp(patients[line].state, "Здоров") == 0)
 
-    //}
 public:
     void input_patient(int total_lines, patient patients[30],char patientname[40], char illnessname[40], char statusname[20])
     {
@@ -103,9 +97,9 @@ public:
 //Болезнь//
 class sickness {
 private:
-    int id=0;
-    char diagnosis[40] = "";
-    char explanation[200] = "";
+    int id;
+    char diagnosis[40];
+    char explanation[200];
 public:
     sickness(int new_id, const char new_diagnosis[40], const char new_explanation[200])
     {
@@ -113,24 +107,22 @@ public:
         strcpy(diagnosis, new_diagnosis);
         strcpy(explanation, new_explanation);
     }
-public:
     sickness(int new_id,  char new_diagnosis[40], char new_explanation[200])
     {
         id = new_id;
         strcpy(diagnosis, new_diagnosis);
         strcpy(explanation, new_explanation);
     }
-public:
     sickness()
     {
-
+        int id = 0;
+        char diagnosis[40] = "";
+        char explanation[200] = "";
     }
-public:
     ~sickness()
     {
 
     }
-public:
     void ill_in(int total_lines,sickness ill[30],char illnessname[40])
     {
         int check = 0, ill_end = 0;
@@ -151,7 +143,6 @@ public:
                 } while (strlen(ill[total_lines - 1].explanation) < 1);
             }
     }
-public:
     void out_illness(int line,  sickness ill[30])
     {
         for (int i = 0; i < 30; i++)
@@ -164,22 +155,24 @@ public:
 
 class doctor {
 private:
-    int id=0;
-    char patient_name[40] = "";
-    char doctor_name[40] = "";
+    int id;
+    char patient_name[40];
+    char doctor_name[40];
 public:
     doctor()
     {
-
+        int id = 0;
+        char patient_name[40] = "";
+        char doctor_name[40] = "";
     }
-public:
+
     doctor(int new_id, const char new_patient_name[40], const char new_doctor_name[40])
     {
         id = new_id;
         strcpy(patient_name, new_patient_name);
         strcpy(doctor_name, new_doctor_name);
     }
-public:
+
     doctor(int new_id, char new_patient_name[40], char new_doctor_name[40])
     {
         id = new_id;
@@ -187,7 +180,6 @@ public:
         strcpy(doctor_name, new_doctor_name);
     }
 
-public:
     void doc_del(int line,doctor doc[30])
     {
         int i = 0,check=0;
@@ -233,19 +225,20 @@ void out_doc(int line,  doctor doc[30])
 
 class hospital{
 private:
-    int id=0;
-    char doctor_name[40]="";
-    char hospital_name[40]="";
+    int id;
+    char doctor_name[40];
+    char hospital_name[40];
 public:
     hospital()
     {
-
+        int id = 0;
+        char doctor_name[40] = "";
+        char hospital_name[40] = "";
     }
     void get_doctor_name(char new_doc_name[40])
     {
         strcpy(doctor_name, new_doc_name);
     }
-public:
     hospital(int new_id, const char new_doctor_name[40], const char new_hospital_name[40])
     {
         id = new_id;
@@ -258,7 +251,6 @@ public:
         strcpy(hosp[total_lines - 1].doctor_name, doctorname);
         strcpy(hosp[total_lines - 1].hospital_name, hospitalname);
     }
-public:
     void write_hosp(int i,hospital hosp[30])
     {
         FILE* ved;
@@ -315,7 +307,9 @@ public:
     }
     status()
     {
-
+        int id;
+        char patient_status[40] = "";
+        char status_description[100] = "";
     }
     void out_state(int line, status state[30])
     {
@@ -440,15 +434,20 @@ int main()
             _getch();
             break;
         case 4:
-            printf("Введите номер строки для удаления:\n");
-            do {
-                scanf_s("%d", &line_num);
-            } while (line_num > total_lines || line_num < 1);
-           patients->patient_del(line_num, patients);
-           hosp->hosp_del(line_num, hosp);
-           doc->doc_del(line_num, doc);
-           state->del_line(line_num, state);
-            total_lines--;
+            if (total_lines > 0)
+            {
+                printf("Введите номер строки для удаления:\n");
+                do {
+                    scanf_s("%d", &line_num);
+                } while (line_num > total_lines || line_num < 1);
+                patients->patient_del(line_num, patients);
+                hosp->hosp_del(line_num, hosp);
+                doc->doc_del(line_num, doc);
+                state->del_line(line_num, state);
+                total_lines--;
+            }
+            else
+                printf("Нет записей для удаления\n");
             break;
         case 5:
             total_lines++;
