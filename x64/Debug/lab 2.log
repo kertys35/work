@@ -1,3 +1,8 @@
 ﻿  lab 2.cpp
-C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(310,13): warning C4101: id: неиспользованная локальная переменная
-  lab 2.vcxproj -> C:\Users\Papa\Desktop\Новая папка (2)\work\x64\Debug\lab 2.exe
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(10,9): error C3861: strcpy: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(11,9): error C3861: strcpy: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(21,9): error C3861: printf: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(26,13): error C3861: _stricmp: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(28,14): error C3861: _stricmp: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(30,14): error C3861: _stricmp: идентификатор не найден
+C:\Users\Papa\Desktop\Новая папка (2)\work\lab 2.cpp(76,5): error C3861: scanf: идентификатор не найден

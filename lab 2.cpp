@@ -54,7 +54,7 @@ public:
     }
 
 public:
-    void input_patient(int total_lines, patient patients[30],char patientname[40], char illnessname[40], char statusname[20])
+    void input_patient(int total_lines, patient patients[30], char patientname[40], char illnessname[40], char statusname[20])
     {
         patients[total_lines - 1].id = total_lines;
         strcpy(patients[total_lines - 1].name, patientname);
@@ -87,7 +87,7 @@ public:
             if (check)
             {
                 patients[i] = patients[i + 1];
-                patients[i].id = i+1;
+                patients[i].id = i + 1;
             }
             i++;
         }
@@ -107,7 +107,7 @@ public:
         strcpy(diagnosis, new_diagnosis);
         strcpy(explanation, new_explanation);
     }
-    sickness(int new_id,  char new_diagnosis[40], char new_explanation[200])
+    sickness(int new_id, char new_diagnosis[40], char new_explanation[200])
     {
         id = new_id;
         strcpy(diagnosis, new_diagnosis);
@@ -123,27 +123,27 @@ public:
     {
 
     }
-    void ill_in(int total_lines,sickness ill[30],char illnessname[40])
+    void ill_in(int total_lines, sickness ill[30], char illnessname[40])
     {
         int check = 0, ill_end = 0;
         ill[total_lines - 1].id = total_lines;
-            int i = 0;
-            while (strlen(ill[i].diagnosis) > 0)
-            {
-                if (_stricmp(illnessname, ill[i].diagnosis) == 0)
-                    check = 1;
-                i++;
-            }
-            strcpy(ill[total_lines - 1].diagnosis, illnessname);
-            if (check == 0)
-            {
-                printf("Был введен новый диагноз, введите его описание:\n");
-                do {
-                    gets_s(ill[total_lines-1].explanation);
-                } while (strlen(ill[total_lines - 1].explanation) < 1);
-            }
+        int i = 0;
+        while (strlen(ill[i].diagnosis) > 0)
+        {
+            if (_stricmp(illnessname, ill[i].diagnosis) == 0)
+                check = 1;
+            i++;
+        }
+        strcpy(ill[total_lines - 1].diagnosis, illnessname);
+        if (check == 0)
+        {
+            printf("Был введен новый диагноз, введите его описание:\n");
+            do {
+                gets_s(ill[total_lines - 1].explanation);
+            } while (strlen(ill[total_lines - 1].explanation) < 1);
+        }
     }
-    void out_illness(int line,  sickness ill[30])
+    void out_illness(int line, sickness ill[30])
     {
         for (int i = 0; i < 30; i++)
         {
@@ -180,21 +180,21 @@ public:
         strcpy(doctor_name, new_doctor_name);
     }
 
-    void doc_del(int line,doctor doc[30])
+    void doc_del(int line, doctor doc[30])
     {
-        int i = 0,check=0;
-    while (doc[i].id > 0 )
-    {
-        if (doc[i].id == line)
-            check = 1;
-        if (check)
+        int i = 0, check = 0;
+        while (doc[i].id > 0)
         {
-            doc[i] = doc[i + 1];
-            doc[i].id = i + 1;
+            if (doc[i].id == line)
+                check = 1;
+            if (check)
+            {
+                doc[i] = doc[i + 1];
+                doc[i].id = i + 1;
+            }
+            i++;
         }
-        i++;
-    }
-    doc[i-1].id = 0;
+        doc[i - 1].id = 0;
     }
 
     ~doctor()
@@ -208,22 +208,22 @@ public:
         fprintf(ved, "|%24s ", doc[i].patient_name);
         fclose(ved);
     }
-    void input_doc(int total_lines, doctor doc[30], char doctorname[40],char patientname[40])
+    void input_doc(int total_lines, doctor doc[30], char doctorname[40], char patientname[40])
     {
         doc[total_lines - 1].id = total_lines - 1;
         strcpy(doc[total_lines - 1].doctor_name, doctorname);
         strcpy(doc[total_lines - 1].patient_name, patientname);
     }
     ////Вывод данных о докторе//
-void out_doc(int line,  doctor doc[30]) 
-{
-    printf("|Пациент                  |Доктор                  |\n");
-    printf("|%24s |%24s|\n",doc[line-1].patient_name,doc[line - 1].doctor_name);
-    printf("----------------------------------------------------\n");
-}
+    void out_doc(int line, doctor doc[30])
+    {
+        printf("|Пациент                  |Доктор                  |\n");
+        printf("|%24s |%24s|\n", doc[line - 1].patient_name, doc[line - 1].doctor_name);
+        printf("----------------------------------------------------\n");
+    }
 };
 
-class hospital{
+class hospital {
 private:
     int id;
     char doctor_name[40];
@@ -251,14 +251,14 @@ public:
         strcpy(hosp[total_lines - 1].doctor_name, doctorname);
         strcpy(hosp[total_lines - 1].hospital_name, hospitalname);
     }
-    void write_hosp(int i,hospital hosp[30])
+    void write_hosp(int i, hospital hosp[30])
     {
         FILE* ved;
         ved = fopen("staff.txt", "a+");
-        fprintf(ved, "|%24s|%24s |\n", hosp[i].doctor_name,hosp[i].hospital_name);
+        fprintf(ved, "|%24s|%24s |\n", hosp[i].doctor_name, hosp[i].hospital_name);
         fclose(ved);
     }
-    hospital(int new_id,  char new_doctor_name[40],  char new_hospital_name[40])
+    hospital(int new_id, char new_doctor_name[40], char new_hospital_name[40])
     {
         id = new_id;
         strcpy(doctor_name, new_doctor_name);
@@ -285,21 +285,21 @@ public:
         hosp[i - 1].id = 0;
     }
     //Вывод данных о больнице//
-void out_hospital(int line,  hospital hosp[30])
-{
-    printf("|Доктор                  |Больница                 |\n");
-    printf("|%24s|%24s|\n", hosp[line - 1].doctor_name, hosp[line - 1].hospital_name);
-    printf("----------------------------------------------------\n");
-}
+    void out_hospital(int line, hospital hosp[30])
+    {
+        printf("|Доктор                  |Больница                 |\n");
+        printf("|%24s|%24s|\n", hosp[line - 1].doctor_name, hosp[line - 1].hospital_name);
+        printf("----------------------------------------------------\n");
+    }
 };
 
-class status{
+class status {
 private:
     int id;
     char patient_status[40] = "";
     char status_description[100] = "";
 public:
-    status(int new_id, const char new_status[40],const char new_description[100])
+    status(int new_id, const char new_status[40], const char new_description[100])
     {
         id = new_id;
         strcpy(patient_status, new_status);
@@ -320,33 +320,33 @@ public:
         int i;
         if (_stricmp(statusname, "Здоров") == 0)
             i = 0;
-         if (_stricmp(statusname, "Умеренное") == 0)
-             i = 1;
-         if (_stricmp(statusname, "Серьёзное") == 0)
-             i = 2;
-         switch (i)
-         {
-         case 0:
-             state[total_lines - 1] = state[30];
-             state[total_lines - 1].id = total_lines - 1;
-             break;
-         case 1:
-             state[total_lines - 1] = state[31];
-             state[total_lines - 1].id = total_lines - 1;
-             break;
-         case 2:
-             state[total_lines - 1] = state[32];
-             state[total_lines - 1].id = total_lines - 1;
-             break;
-         default:
-             break;
-         }
+        if (_stricmp(statusname, "Умеренное") == 0)
+            i = 1;
+        if (_stricmp(statusname, "Серьёзное") == 0)
+            i = 2;
+        switch (i)
+        {
+        case 0:
+            state[total_lines - 1] = state[30];
+            state[total_lines - 1].id = total_lines - 1;
+            break;
+        case 1:
+            state[total_lines - 1] = state[31];
+            state[total_lines - 1].id = total_lines - 1;
+            break;
+        case 2:
+            state[total_lines - 1] = state[32];
+            state[total_lines - 1].id = total_lines - 1;
+            break;
+        default:
+            break;
+        }
 
     }
-    void del_line(int line,status state[33])
+    void del_line(int line, status state[33])
     {
         int i = 0, check = 0;
-        while (state[i].id > 0 && state[i].id<30)
+        while (state[i].id > 0 && state[i].id < 30)
         {
             if (state[i].id == line)
                 check = 1;
@@ -371,33 +371,33 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     char* locale = setlocale(LC_ALL, "RUS");
-    int line_num,total_lines=1,check_lines=0;
-    char patientname[40], doctorname[40], hospitalname[40], statusname[20],illnessname[40];
-    patient* patients = new patient[30] { };
+    int line_num, total_lines = 1, check_lines = 0;
+    char patientname[40], doctorname[40], hospitalname[40], statusname[20], illnessname[40];
+    patient* patients = new patient[30]{ };
     patients[0] = { 1, "Алексей А.A.", "Грипп", "Здоров" };
-    status *state = new status[33]{ };
-    state[32]={32,"Серьёзное", "Необходимо постоянное наблюдение и уход за пациентом"};
-    state[31] = {31,"Умеренное","Не наблюдается тяжёлых ослажнений" };
-    state[30]= {30,"Здоров","Пациент здоров"};
+    status* state = new status[33]{ };
+    state[32] = { 32,"Серьёзное", "Необходимо постоянное наблюдение и уход за пациентом" };
+    state[31] = { 31,"Умеренное","Не наблюдается тяжёлых ослажнений" };
+    state[30] = { 30,"Здоров","Пациент здоров" };
     state[0] = { 1,"Здоров","Пациент здоров" };
     hospital  hosp[30];
-    hosp[0] = {1,"Борисов Ф.А.", "Городская поликлиника №12"};
+    hosp[0] = { 1,"Борисов Ф.А.", "Городская поликлиника №12" };
     doctor doc[30];
-    doc[0] = {1,"Александр И.И.","Борисов Ф.А."};
-    sickness* ill = new sickness[30] {};
-    ill[0] = {1,"Грипп","Острое респираторное вирусное заболевание, вызываемое вирусами гриппа,поражающее верхние дыхательные пути"};
+    doc[0] = { 1,"Александр И.И.","Борисов Ф.А." };
+    sickness* ill = new sickness[30]{};
+    ill[0] = { 1,"Грипп","Острое респираторное вирусное заболевание, вызываемое вирусами гриппа,поражающее верхние дыхательные пути" };
     int repeat = 1;
     do {
         check_lines = 0;
         patients->out(patients);
         printf("Введите:\n1-для просмотра данных о пациенте\n2-для просмотра данных о болезни\n3-для просмотра состояния пациета\n4-для удаления строки\n5-для добавления строки\n6-Записать таблицу в файл\n7-закрыть программу\n");
-        int choice_patient,choice_doctor;
+        int choice_patient, choice_doctor;
         do {
             scanf_s("%d", &choice_patient);
         } while (choice_patient > 7 || choice_patient < 1);
         switch (choice_patient)
         {
-           //просмотр данных о пациенте
+            //просмотр данных о пациенте
         case 1:
             if (total_lines > 0)
             {
@@ -489,46 +489,46 @@ int main()
         case 5:
             total_lines++;
             printf("Введите ФИО пациента:\n");
-                do {
-                    gets_s(patientname);
-                } while (strlen(patientname) == 0);
-                printf("Введите ФИО лечащего доктора пациента:\n");
-                do {
-                    gets_s(doctorname);
-                } while (strlen(doctorname) == 0);
-                doc->input_doc(total_lines,doc,doctorname,patientname);
-                printf("Введите название больницы доктора:\n");
-                do {
-                    gets_s(hospitalname);
-                } while (strlen(hospitalname) == 0);
-                hosp->input_hosp(total_lines, hosp, doctorname, hospitalname);
-                printf("Введите диагноз пациента:\n");
-                do {
-                    gets_s(illnessname);
-                } while (strlen(illnessname)==0);       
-                ill->ill_in(total_lines, ill, illnessname);
-                printf("Введите состояние пациента (Здоров, Умеренное, Серьёзное):\n");
-                do {
-                    gets_s(statusname);
-                } while (_stricmp(statusname, "Здоров") != 0 && _stricmp(statusname, "Умеренное") != 0 && _stricmp(statusname, "Серьёзное") != 0);
-                state->new_line(total_lines,statusname,state);
-                patients->input_patient(total_lines, patients, patientname, illnessname, statusname);
+            do {
+                gets_s(patientname);
+            } while (strlen(patientname) == 0);
+            printf("Введите ФИО лечащего доктора пациента:\n");
+            do {
+                gets_s(doctorname);
+            } while (strlen(doctorname) == 0);
+            doc->input_doc(total_lines, doc, doctorname, patientname);
+            printf("Введите название больницы доктора:\n");
+            do {
+                gets_s(hospitalname);
+            } while (strlen(hospitalname) == 0);
+            hosp->input_hosp(total_lines, hosp, doctorname, hospitalname);
+            printf("Введите диагноз пациента:\n");
+            do {
+                gets_s(illnessname);
+            } while (strlen(illnessname) == 0);
+            ill->ill_in(total_lines, ill, illnessname);
+            printf("Введите состояние пациента (Здоров, Умеренное, Серьёзное):\n");
+            do {
+                gets_s(statusname);
+            } while (_stricmp(statusname, "Здоров") != 0 && _stricmp(statusname, "Умеренное") != 0 && _stricmp(statusname, "Серьёзное") != 0);
+            state->new_line(total_lines, statusname, state);
+            patients->input_patient(total_lines, patients, patientname, illnessname, statusname);
             break;
             //Записать таблицу в файл
         case 6:
-           patients->write_results(patients);
-           FILE* ved;
-           ved = fopen("staff.txt", "w+");
-           fprintf(ved, "|Пациент                  |Доктор                  |Больница                 |\n");
-           fclose(ved);
-           for (int i=0; i < total_lines; i++)
-           {
-               doc->write_doc(i, doc);
-               hosp->write_hosp(i, hosp);
-           }
-           ved = fopen("staff.txt", "a+");
-           fprintf(ved,"------------------------------------------------------------------------------\n");
-           fclose(ved);
+            patients->write_results(patients);
+            FILE* ved;
+            ved = fopen("staff.txt", "w+");
+            fprintf(ved, "|Пациент                  |Доктор                  |Больница                 |\n");
+            fclose(ved);
+            for (int i = 0; i < total_lines; i++)
+            {
+                doc->write_doc(i, doc);
+                hosp->write_hosp(i, hosp);
+            }
+            ved = fopen("staff.txt", "a+");
+            fprintf(ved, "------------------------------------------------------------------------------\n");
+            fclose(ved);
 
             break;
             //закрыть программу
@@ -541,5 +541,5 @@ int main()
     } while (repeat);
     delete[] patients;
     delete[] ill;
-    delete[] state; 
+    delete[] state;
 }
