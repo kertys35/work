@@ -371,7 +371,7 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     char* locale = setlocale(LC_ALL, "RUS");
-    int line_num,total_lines=1;
+    int line_num,total_lines=1,check_lines=0;
     char patientname[40], doctorname[40], hospitalname[40], statusname[20],illnessname[40];
     patient* patients = new patient[30] { };
     patients[0] = { 1, "Алексей А.A.", "Грипп", "Здоров" };
@@ -388,6 +388,7 @@ int main()
     ill[0] = {1,"Грипп","Острое респираторное вирусное заболевание, вызываемое вирусами гриппа,поражающее верхние дыхательные пути"};
     int repeat = 1;
     do {
+        check_lines = 0;
         patients->out(patients);
         printf("Введите:\n1-для просмотра данных о пациенте\n2-для просмотра данных о болезни\n3-для просмотра состояния пациета\n4-для удаления строки\n5-для добавления строки\n6-Записать таблицу в файл\n7-закрыть программу\n");
         int choice_patient,choice_doctor;
@@ -396,49 +397,84 @@ int main()
         } while (choice_patient > 7 || choice_patient < 1);
         switch (choice_patient)
         {
+           //просмотр данных о пациенте
         case 1:
-            printf("Введите номер пациента:\n");
-            do {
-                scanf_s("%d", &line_num);
-            } while (line_num > total_lines || line_num < 1);
-            doc->out_doc(line_num, doc);
-            printf("Введите:\n1-Просмотр информации о докторе\n2-Возвращение к предыдущей таблице\n");
-            scanf_s("%d", &choice_doctor);
-            switch (choice_doctor)
+            if (total_lines > 0)
             {
-            case 1:
-                hosp->out_hospital(line_num,hosp);
+                printf("Введите номер пациента:\n");
+                do {
+                    if (check_lines)
+                        printf("Повторите ввод\n");
+                    scanf_s("%d", &line_num);
+                    check_lines = 1;
+                } while (line_num > total_lines || line_num < 1);
+                doc->out_doc(line_num, doc);
+                printf("Введите:\n1-Просмотр информации о докторе\nДля возвращение к предыдущей таблице нажмите любую другую кнопку\n");
+                scanf_s("%d", &choice_doctor);
+                switch (choice_doctor)
+                {
+                case 1:
+                    hosp->out_hospital(line_num, hosp);
+                    printf("Нажмите любую кнопку для возвращения в главную таблицу\n");
+                    _getch();
+                    break;
+                default:
+                    break;
+                }
+            }
+            else
+                printf("Нет записей\n");
+            break;
+            //просмотр данных о болезни
+        case 2:
+            if (total_lines > 0)
+            {
+                check_lines = 0;
+                printf("Введите номер пациента:\n");
+                do {
+                    if (check_lines)
+                        printf("Повторите ввод\n");
+                    scanf_s("%d", &line_num);
+                    check_lines = 1;
+                } while (line_num > total_lines || line_num < 1);
+                ill->out_illness(line_num, ill);
                 printf("Нажмите любую кнопку для возвращения в главную таблицу\n");
                 _getch();
-                break;
-            default:
-                break;
             }
+            else
+                printf("Нет записей\n");
             break;
-        case 2:
-            printf("Введите номер пациента:\n");
-            do {
-                scanf_s("%d", &line_num);
-            } while (line_num > total_lines || line_num < 1);
-            ill->out_illness(line_num,ill);
-            printf("Нажмите любую кнопку для возвращения в главную таблицу\n");
-            _getch();
-            break;
+            //просмотр состояния пациета
         case 3:
-            printf("Введите номер пациента:\n");
-            do {
-                scanf_s("%d", &line_num);
-            } while (line_num > total_lines || line_num < 1);
-            state->out_state(line_num,state);
-            printf("Нажмите любую кнопку для возвращения в главную таблицу\n");
-            _getch();
+            check_lines = 0;
+            if (total_lines > 0)
+            {
+                printf("Введите номер пациента:\n");
+                do {
+                    if (check_lines)
+                        printf("Повторите ввод\n");
+                    scanf_s("%d", &line_num);
+                    check_lines = 1;
+                } while (line_num > total_lines || line_num < 1);
+                state->out_state(line_num, state);
+                printf("Нажмите любую кнопку для возвращения в главную таблицу\n");
+                _getch();
+            }
+            else
+                printf("Нет записей\n");
+
             break;
+            //удаление строки
         case 4:
             if (total_lines > 0)
             {
+                check_lines = 0;
                 printf("Введите номер строки для удаления:\n");
                 do {
+                    if (check_lines)
+                        printf("Повторите ввод\n");
                     scanf_s("%d", &line_num);
+                    check_lines = 1;
                 } while (line_num > total_lines || line_num < 1);
                 patients->patient_del(line_num, patients);
                 hosp->hosp_del(line_num, hosp);
@@ -449,6 +485,7 @@ int main()
             else
                 printf("Нет записей для удаления\n");
             break;
+            //добавления строки
         case 5:
             total_lines++;
             printf("Введите ФИО пациента:\n");
@@ -477,6 +514,7 @@ int main()
                 state->new_line(total_lines,statusname,state);
                 patients->input_patient(total_lines, patients, patientname, illnessname, statusname);
             break;
+            //Записать таблицу в файл
         case 6:
            patients->write_results(patients);
            FILE* ved;
@@ -493,6 +531,7 @@ int main()
            fclose(ved);
 
             break;
+            //закрыть программу
         case 7:
             repeat = 0;
             break;
